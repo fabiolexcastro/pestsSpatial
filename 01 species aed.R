@@ -9,13 +9,17 @@ g <- gc(reset = T); rm(list = ls()); options(scipen = 999)
 # Functions ---------------------------------------------------------------
 findGBIF <- function(spc){
   
+  spc <- 'Cryphonectria parasitica' # Eucalyptus snout beetle
+  # spc <- 'Eucalyptus snout beetle'
+  spc <- 'Dendroctonus ponderosae'
+  
   try(expr = {
     
     cat(spc, '\n')
     rsl <- occ_data(scientificName = spc, limit = 2e5, hasCoordinate = T, hasGeospatialIssue = F)
     rsl <- rsl[[2]]
     rsl <- dplyr::select(rsl, key, scientificName, decimalLongitude, decimalLatitude, issues, year, month, day, eventDate, country)
-    write.csv(rsl, glue('../tbl/speciesGBIF/{spc}.csv'), row.names = FALSE)
+    write.csv(rsl, glue('./tbl/speciesGBIF/{spc}.csv'), row.names = FALSE)
     return(rsl)  
     
   })
